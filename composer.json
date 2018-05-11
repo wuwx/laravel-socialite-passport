@@ -1,0 +1,19 @@
+{
+    "name": "wuwx/laravel-socialite-passport",
+    "description": "",
+    "require": {
+        "laravel/socialite": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wuwx\\LaravelSocialitePassport\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wuwx\\LaravelSocialitePassport\\LaravelSocialitePassportServiceProvider"
+            ]
+        }
+    }
+}
