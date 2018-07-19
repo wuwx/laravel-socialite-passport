@@ -1,6 +1,15 @@
 {
     "name": "wuwx/laravel-socialite-passport",
+    "type": "library",
+    "keywords": ["laravel", "socialite", "passport"],
     "description": "",
+    "authors": [
+        {
+            "name": "Wu Weixin",
+            "email": "wuweixin@gmail.com"
+        }
+    ],
+    "license": "MIT",
     "require": {
         "laravel/socialite": "^3.0"
     },
