@@ -9,19 +9,28 @@ use Laravel\Socialite\Two\User;
 class PassportProvider extends AbstractProvider implements ProviderInterface
 {
 
+    protected $serverUrl;
+
+    public function serverUrl($url)
+    {
+        $this->serverUrl = $url;
+
+        return $this;
+    }
+
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('http://localhost:8000/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase($this->serverUrl . "/oauth/authorize", $state);
     }
 
     protected function getTokenUrl()
     {
-        return 'http://localhost:8000/oauth/token';
+        return $this->serverUrl . "/oauth/token";
     }
 
     protected function getUserByToken($token)
     {
-        $userUrl = 'http://localhost:8000/oauth/user';
+        $userUrl = $this->serverUrl . "/api/user";
         $response = $this->getHttpClient()->request("GET", $userUrl, [
             'headers' => [
                 'Accept' => 'application/json',
@@ -36,8 +45,6 @@ class PassportProvider extends AbstractProvider implements ProviderInterface
     {
         return (new User)->setRaw($user)->map([
             'id' => $user['id'],
-            'nickname' => $user['login'],
-            'avatar' => $user['avatar'],
             'name' => $user['name'],
             'email' => $user['email'],
         ]);

@@ -14,7 +14,12 @@ class LaravelSocialitePassportServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+         Socialite::extend('passport', function () {
+             $config = $this->app['config']['services.passport'];
+             $provider = Socialite::buildProvider(PassportProvider::class, $config);
+             $provider->serverUrl($config['server_url']);
+             return $provider;
+         });
     }
 
     /**
@@ -24,9 +29,6 @@ class LaravelSocialitePassportServiceProvider extends ServiceProvider
      */
      public function register()
      {
-         Socialite::extend('passport', function() {
-             $config = $this->app['config']['services.passport'];
-             return new PassportProvider(app('request'), $config['client_id'], $config['client_secret'], route('login') . "/passport/callback");
-         });
+         //
      }
 }
